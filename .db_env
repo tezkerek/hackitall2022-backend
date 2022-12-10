@@ -1,0 +1,4 @@
+POSTGRES_USER=bcr
+POSTGRES_PASSWORD=lengthyPassword2#
+POSTGRES_DB=bcr
+
