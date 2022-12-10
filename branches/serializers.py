@@ -34,3 +34,9 @@ class BranchSerializer(serializers.ModelSerializer):
             "has_break",
             "break_schedule",
         )
+
+
+class OperationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Operation
+        fields = ("id", "name", "description", "appointment_duration")

@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from branches.views import BranchViewSet
+from branches.views import BranchViewSet, OperationViewSet
 from appointments.views import AppointmentViewSet
 
 router = routers.SimpleRouter()
+router.register(r'operations', OperationViewSet, basename='branch')
 router.register(r'branches', BranchViewSet, basename='branch')
 router.register(r'appointments', AppointmentViewSet, basename='appointment')
 

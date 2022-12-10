@@ -1,21 +1,32 @@
 import json
-import sys
 
 from branches.models import Branch, Operation, PhoneNumber, Schedule
+
+operation_desc_to_id_map = {}
+
+
+def insert_operation(**operation_args):
+    op = Operation.objects.create(**operation_args)
+    operation_desc_to_id_map[operation_args["name"]] = op.id
+    return op
+
+
+with open("bcr_operations.json") as src:
+    processed_dict = json.load(src)
+    entries = processed_dict["serviceResponse"]
+
+    # Insert all operations
+    for op_dict in entries:
+        insert_operation(
+            name=op_dict["operationType"],
+            description=op_dict["operationDescription"],
+            appointment_duration=op_dict["durationMinutes"],
+        )
 
 with open("bcr_response.json") as src:
     processed_dict = json.load(src)
 
     entries = processed_dict["serviceResponse"]
-
-    # Collect all possible operations
-    operation_descs = set(op_desc for br in entries for op_desc in br["operations"])
-
-    # Insert all operations
-    operation_desc_to_id_map = {}
-    for op_desc in operation_descs:
-        op = Operation.objects.create(name=op_desc)
-        operation_desc_to_id_map[op_desc] = op.id
 
     # Insert branches
     for br_dict in entries:
@@ -58,9 +69,16 @@ with open("bcr_response.json") as src:
             break_schedule=break_schedule,
         )
 
-        operation_ids = [
-            operation_desc_to_id_map[op_desc] for op_desc in br_dict["operations"]
-        ]
+        operation_ids = []
+        for op_name in br_dict["operations"]:
+            try:
+                operation_ids.append(operation_desc_to_id_map[op_name])
+            except KeyError:
+                op = insert_operation(
+                    name=op_name, description=op_name, appointment_duration=20
+                )
+                operation_ids.append(op.id)
+
         branch.operations.add(*operation_ids)
 
         for phonenum_str in br_dict["telephone"]:
