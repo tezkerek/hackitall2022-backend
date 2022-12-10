@@ -9,15 +9,15 @@ class AppointmentSerializer(serializers.ModelSerializer):
     operations = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Operation.objects.all()
     )
-    branch_id = serializers.IntegerField(source="branch.branch_id")
+    branch_id = serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all())
 
     class Meta:
         model = Appointment
         fields = (
             "operations",
             "branch_id",
-            "date",
-            "duration",
+            "start_date",
+            "end_date",
             "first_name",
             "last_name",
             "cnp",
@@ -27,20 +27,10 @@ class AppointmentSerializer(serializers.ModelSerializer):
         )
 
     def create(self, validated_data: Dict):
-        print(validated_data)
-        branch_id = validated_data.pop("branch")["branch_id"]
-        try:
-            branch = Branch.objects.filter(branch_id=branch_id).first()
-        except:
-            raise Http404
-
         operations = validated_data.pop("operations")
 
         print(Appointment(**validated_data))
-        appointment = Appointment.objects.create(
-            **validated_data,
-            branch=branch,
-        )
+        appointment = Appointment.objects.create(**validated_data)
 
         for op in operations:
             appointment.operations.add(op)

@@ -18,7 +18,7 @@ class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
         fields = (
-            "branch_id",
+            "id",
             "name",
             "operations",
             "street",

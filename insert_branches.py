@@ -54,7 +54,6 @@ with open("bcr_response.json") as src:
         )
 
         branch = Branch.objects.create(
-            branch_id=br_dict["branchId"],
             name=br_dict["brn"],
             street=br_dict["br_street"],
             city=br_dict["br_city"],

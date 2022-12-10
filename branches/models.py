@@ -19,7 +19,6 @@ class Schedule(models.Model):
 
 # Create your models here.
 class Branch(models.Model):
-    branch_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=100)
     operations = models.ManyToManyField(Operation)
 
