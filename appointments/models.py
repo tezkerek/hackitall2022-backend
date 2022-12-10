@@ -5,7 +5,7 @@ from branches.models import Branch, Operation
 class Appointment(models.Model):
     operations = models.ManyToManyField(Operation)
 
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE)
+    branch = models.ForeignKey(Branch, on_delete=models.RESTRICT)
     date = models.DateTimeField()
     duration = models.IntegerField()
 

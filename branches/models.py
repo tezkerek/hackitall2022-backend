@@ -28,17 +28,17 @@ class Branch(models.Model):
     longitude = models.FloatField()
 
     mf_schedule = models.ForeignKey(
-        Schedule, on_delete=models.CASCADE, related_name="mf_schedule"
+        Schedule, on_delete=models.RESTRICT, related_name="mf_schedule"
     )
 
     is_weekend_open = models.BooleanField()
     is_sunday_open = models.BooleanField()
     satsun_schedule = models.ForeignKey(
-        Schedule, on_delete=models.CASCADE, related_name="satsun_schedule"
+        Schedule, on_delete=models.RESTRICT, related_name="satsun_schedule"
     )
 
     has_break = models.BooleanField()
-    break_schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name="break_schedule")
+    break_schedule = models.ForeignKey(Schedule, on_delete=models.RESTRICT, related_name="break_schedule")
 
 
 class PhoneNumber(models.Model):
