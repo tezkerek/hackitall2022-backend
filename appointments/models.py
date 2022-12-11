@@ -6,8 +6,8 @@ class Appointment(models.Model):
     operations = models.ManyToManyField(Operation)
 
     branch = models.ForeignKey(Branch, on_delete=models.RESTRICT)
-    date = models.DateTimeField()
-    duration = models.IntegerField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
