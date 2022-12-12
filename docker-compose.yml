@@ -6,7 +6,7 @@ services:
         ports:
             - "5432:5432"
         env_file:
-            - ./.db_env
+            - ./.env
     api:
         build: .
         command: ./start-server.sh
@@ -15,6 +15,6 @@ services:
         ports:
             - "8080:8080"
         env_file:
-            - ./.db_env
+            - ./.env
         depends_on:
             - db
