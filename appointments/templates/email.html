@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<style>
+    * {
+        font-family: sans-serif;
+    }
+
+    a {
+        text-decoration: none;
+        color: #409ae2;
+        /*color: "#00497b";*/
+    }
+
+    .container {
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+
+        font-size: 1.2em;
+    }
+
+    #map-preview {
+        border: 2px solid #409ae2;
+        border-radius: 4px;
+    }
+</style>
+    <body>
+        <div class="container">
+            <p>Salut {{ first_name }},</p>
+
+            <p>
+            Programarea ta la <b>{{ branch_name }}</b> este confirmată.
+            </p>
+
+            <p>
+            <b>Detalii programare:</b>
+            </p>
+
+            <p>
+            Scopul vizitei: <b>{{ operation_name }}</b>
+            <br/>
+            Locatie: <b>{{ branch_name }}</b>
+            <br/>
+            Data și intervalul orar: <b>{{ date }}, {{ start_time }} - {{ end_time }}</b>
+            <br/>
+            Adresa: <b>{{ street }}</b>
+            </p>
+
+            <img id="map-preview" src="{{map_preview_url}}" />
+            <a href="{{map_directions_url}}">Afișează traseul pe hartă</a>
+
+            <p>
+            Până când ne întâlnim, poți descărca și adăuga programarea în
+            calendarul tău.
+            </p>
+            <a href="{{appointment_ics_url}}">Adaugă în calendar</a>
+
+            <p>
+            În cazul în care nu poți ajunge la data și intervalul orar
+            stabilit, te rugăm anulezi întâlnirea.
+            </p>
+            <a href="{{delete_appointment_url}}">Anulează vizita</a>
+        </div>
+    </body>
+</html>

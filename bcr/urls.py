@@ -15,16 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from rest_framework import routers
 from branches.views import BranchViewSet, OperationViewSet
-from appointments.views import AppointmentViewSet
+from appointments.views import (
+    AppointmentViewSet,
+    email_view,
+    delete_appointment,
+    download_appointment_ics,
+)
 
 router = routers.SimpleRouter()
-router.register(r'operations', OperationViewSet, basename='branch')
-router.register(r'branches', BranchViewSet, basename='branch')
-router.register(r'appointments', AppointmentViewSet, basename='appointment')
+router.register(r"operations", OperationViewSet, basename="branch")
+router.register(r"branches", BranchViewSet, basename="branch")
+router.register(r"appointments", AppointmentViewSet, basename="appointment")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include(router.urls))
-]
+    path("admin/", admin.site.urls),
+    path("", include(router.urls)),
+    path("email/", email_view),
+    path("delete-appointment/<uuid>", delete_appointment),
+    path("appointment-ics/<uuid>", download_appointment_ics),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

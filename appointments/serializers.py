@@ -1,21 +1,20 @@
 from typing import Dict
-from django.http import Http404
 from rest_framework import serializers
 from branches.models import Branch, Operation
 from .models import Appointment
+from .ics import generate_ics
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
     operations = serializers.PrimaryKeyRelatedField(
         many=True, queryset=Operation.objects.all()
     )
-    branch_id = serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all())
 
     class Meta:
         model = Appointment
         fields = (
             "operations",
-            "branch_id",
+            "branch",
             "start_date",
             "end_date",
             "first_name",
@@ -34,5 +33,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
         for op in operations:
             appointment.operations.add(op)
+
+        ics_path = generate_ics(appointment)
+        print(ics_path)
 
         return appointment

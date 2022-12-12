@@ -5,9 +5,10 @@ authors = ["Andrei", "Mihai", "Giovani"]
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "~3.9"
 django = "^4.1"
 djangorestframework = "^3.14"
 django-extensions = "^3.2"
 psycopg2-binary = "^2.9"
 django-cors-headers = "^3.13.0"
+icalendar = "^5.0.3"

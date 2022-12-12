@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-r_cvxm8ms(csu+c&0z04b3jqb+qm%44y8yg12xh+6r2+_cr$p="
+MAPS_API_KEY = os.environ.get("MAPS_API_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -130,7 +131,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+BASE_DIR = Path(__file__).resolve().parent.parent
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+print(open(os.path.join(STATIC_ROOT, '80df62c5-744c-4084-b583-f1162368d8c7.ics')).read())
+print(os.path.join(STATIC_ROOT, '80df62c5-744c-4084-b583-f1162368d8c7.ics'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

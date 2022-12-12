@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django.db.models import Exists, OuterRef, Q
 from django.http import QueryDict
 from django.db.models import QuerySet
