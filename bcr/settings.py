@@ -134,8 +134,6 @@ USE_TZ = True
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-print(open(os.path.join(STATIC_ROOT, '80df62c5-744c-4084-b583-f1162368d8c7.ics')).read())
-print(os.path.join(STATIC_ROOT, '80df62c5-744c-4084-b583-f1162368d8c7.ics'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

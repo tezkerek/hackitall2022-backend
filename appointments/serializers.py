@@ -28,13 +28,11 @@ class AppointmentSerializer(serializers.ModelSerializer):
     def create(self, validated_data: Dict):
         operations = validated_data.pop("operations")
 
-        print(Appointment(**validated_data))
         appointment = Appointment.objects.create(**validated_data)
 
         for op in operations:
             appointment.operations.add(op)
 
         ics_path = generate_ics(appointment)
-        print(ics_path)
 
         return appointment
